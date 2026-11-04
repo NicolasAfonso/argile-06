@@ -1,0 +1,30 @@
+{
+ "extrait_le": "2026-10-29",
+ "source": "API Géorisques, base GASPAR",
+ "data": [
+  {
+   "date_debut_evt": "01/07/2003",
+   "date_fin_evt": "30/09/2003",
+   "date_publication_jo": "31/05/2005",
+   "libelle_risque_jo": "Sécheresse"
+  },
+  {
+   "date_debut_evt": "01/07/2007",
+   "date_fin_evt": "30/09/2007",
+   "date_publication_jo": "13/08/2008",
+   "libelle_risque_jo": "Sécheresse"
+  },
+  {
+   "date_debut_evt": "01/04/2022",
+   "date_fin_evt": "30/09/2022",
+   "date_publication_jo": "03/05/2023",
+   "libelle_risque_jo": "Sécheresse"
+  },
+  {
+   "date_debut_evt": "01/04/2023",
+   "date_fin_evt": "30/06/2023",
+   "date_publication_jo": "02/07/2024",
+   "libelle_risque_jo": "Sécheresse"
+  }
+ ]
+}
