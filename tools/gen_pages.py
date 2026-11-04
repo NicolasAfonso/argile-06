@@ -183,11 +183,11 @@ page('vence.html', 'Vence et Alpes-Maritimes', 'La situation locale, avec des do
 <div class="note">Une demande déposée n’est pas une reconnaissance. Le dossier est instruit par la préfecture puis examiné par une commission interministérielle, qui peut reconnaître, refuser ou ajourner.</div>
 <h2>À qui s’adresser</h2>
 <div class="cards">
-<div class="card"><h3>Mairie de Vence</h3><p>Pour déposer vos constatations (photos, courrier) : la commune les joint au dossier. Demandez le service compétent (risques, urbanisme).</p></div>
+<div class="card"><h3>Mairie de Vence</h3><p>Les sinistrés adressent un <strong>dossier de demande de classement avec photos</strong> au service « assurances » de la commune, qui le joint à sa demande :</p><ul><li>par voie postale : Mairie de Vence, 9 place Clemenceau, 06140 Vence ;</li><li>par courriel : <a href="mailto:directiongeneraledesservices@ville-vence.fr">directiongeneraledesservices@ville-vence.fr</a>.</li></ul><p><small>Source : <a href="https://vence.fr/demande-de-classement-en-catastrophe-naturelle-secheresse-2025/" rel="noopener">page de la mairie</a>.</small></p></div>
 <div class="card"><h3>Préfecture des Alpes-Maritimes</h3><p>Instruit les demandes communales. C’est elle qui notifie la décision au maire.</p></div>
 <div class="card"><h3>Votre assureur</h3><p>À prévenir dès que vous constatez des désordres. Voir la <a href="demarche.html">démarche</a>.</p></div>
 </div>
-<p><small>Coordonnées exactes : consultez les sites officiels de la commune et de la préfecture (non reproduits ici pour éviter toute erreur).</small></p>
+<p><small>Pour la préfecture, consultez son site officiel. Pour la mairie, vérifiez les coordonnées sur sa page avant tout envoi : elles peuvent changer.</small></p>
 <h2>Sources</h2>
 <ul><li><a href="https://www.georisques.gouv.fr/risques/catastrophes-naturelles" rel="noopener">Géorisques : catastrophes naturelles</a></li><li><a href="https://www.legifrance.gouv.fr/" rel="noopener">Légifrance : arrêtés publiés au Journal officiel</a></li></ul>
 {AVERT}
