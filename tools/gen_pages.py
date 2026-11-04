@@ -105,7 +105,6 @@ def page(fname, title, sub, body, desc):
     open(os.path.join(OUT, fname), 'w', encoding='utf-8').write(html)
 
 
-V = '<span class="verify">à vérifier</span>'
 AVERT = '<div class="warn"><strong>Information générale.</strong> Cette page ne remplace pas un conseil personnalisé. Vérifiez votre situation auprès de la préfecture, de votre assureur ou d’un professionnel (expert, avocat).</div>'
 
 # ---------- Accueil ----------
@@ -180,7 +179,7 @@ page('vence.html', 'Vence et Alpes-Maritimes', 'La situation locale, avec des do
 <p>La liste ci-dessous provient de la base publique GASPAR (Géorisques).</p>
 <div id="arretes-secheresse" data-insee="06157"><p>Chargement…</p></div>
 <h2>Demande en cours de la commune</h2>
-<p>La commune de Vence a déposé une demande de reconnaissance de l’état de catastrophe naturelle pour la sécheresse. {V} <small>Information à confirmer auprès de la mairie ou de la préfecture : l’état d’avancement n’est pas publié ici.</small></p>
+<p>La commune de Vence indique sur <a href="https://vence.fr/demande-de-classement-en-catastrophe-naturelle-secheresse-2025/" rel="noopener">sa page dédiée</a> avoir sollicité auprès de l’État, le 9 septembre 2026, le classement en catastrophe naturelle pour la sécheresse de cet été. <small>L’état d’avancement de la décision n’est pas suivi ici : renseignez-vous auprès de la mairie ou de la préfecture.</small></p>
 <div class="note">Une demande déposée n’est pas une reconnaissance. Le dossier est instruit par la préfecture puis examiné par une commission interministérielle, qui peut reconnaître, refuser ou ajourner.</div>
 <h2>À qui s’adresser</h2>
 <div class="cards">
@@ -227,11 +226,11 @@ page('demarche.html', 'La démarche catastrophe naturelle', 'Pas à pas, avec le
 <ol class="steps">
 <li><h3>Constater et documenter</h3><p>Photos datées, mètre ou règle à côté, plan des fissures, évolution dans le temps. Conservez tout (courriels, devis).</p></li>
 <li><h3>Informer la mairie</h3><p>Déposez un courrier avec photos : la commune les joint à sa demande de reconnaissance.</p></li>
-<li><h3>La commune demande la reconnaissance</h3><p>Le maire dépose la demande à la préfecture, dans un délai réglementaire après l’événement. {V}</p></li>
-<li><h3>Examen par la commission interministérielle</h3><p>Elle rend un avis motivé : reconnaissance, <strong>refus</strong> ou <strong>ajournement</strong> (dossier reporté pour complément).</p></li>
+<li><h3>La commune demande la reconnaissance</h3><p>Le maire dépose la demande auprès du préfet, au plus tard <span class="delai">24 mois après le phénomène</span> (<a href="https://www.georisques.gouv.fr/minformer-sur-la-prevention-des-risques/la-garantie-cat-nat" rel="noopener">Géorisques</a>), sur formulaire ou via l’application iCatNat.</p></li>
+<li><h3>Examen par la commission interministérielle</h3><p>Elle rend un avis motivé : reconnaissance, <strong>refus</strong> ou <strong>ajournement</strong> (dossier reporté).</p></li>
 <li><h3>L’arrêté est publié au Journal officiel</h3><p>Depuis la loi du 28 décembre 2021, il indique pour chaque commune la décision motivée ; les refus figurent en annexe. La préfecture notifie la décision au maire.</p></li>
-<li><h3>Déclarer le sinistre à l’assureur</h3><p><span class="delai">30 jours après publication au JO</span> {V}<br>Par lettre recommandée ou en ligne, avec vos photos. Vous pouvez aussi prévenir l’assureur plus tôt : n’attendez pas.</p></li>
-<li><h3>Expertise et indemnisation</h3><p>L’assureur mandate un expert. Vous pouvez faire vérifier le rapport par votre propre expert. Le code des assurances encadre les délais d’indemnisation. {V}</p></li>
+<li><h3>Déclarer le sinistre à l’assureur</h3><p><span class="delai">30 jours après publication au JO</span><br>Par lettre recommandée ou en ligne, avec vos photos. Vous pouvez aussi prévenir l’assureur plus tôt : n’attendez pas. <small><a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000047109081" rel="noopener">Article L.125-2</a> du code des assurances.</small></p></li>
+<li><h3>Expertise et indemnisation</h3><p>L’assureur dispose d’<strong>un mois</strong> pour vous informer et, s’il le juge nécessaire, missionner un expert. Une <strong>provision</strong> doit être versée sous <strong>deux mois</strong> après l’état estimatif ou la publication de l’arrêté si elle est postérieure. Une fois votre accord reçu, l’indemnité doit être versée sous <strong>21 jours</strong>, ou l’entreprise de réparation missionnée sous un mois (<a href="https://www.legifrance.gouv.fr/jorf/article_jo/JORFARTI000044589874" rel="noopener">loi du 28 décembre 2021, art. 6</a>). Vous pouvez faire vérifier le rapport par votre propre expert et demander une contre-expertise.</p></li>
 </ol>
 <div class="warn"><strong>Points d’attention.</strong> La franchise légale et les délais d’indemnisation évoluent : vérifiez-les dans votre contrat et dans le texte en vigueur sur Légifrance. Le délai de 30 jours court à compter de la publication, pas de la découverte des fissures.</div>
 <h2>Sources</h2>
@@ -251,28 +250,28 @@ page('recours.html', 'Refus ou ajournement : que faire ?', 'Un refus n’est pas
 <h2>2. Comprendre la différence</h2>
 <div class="cards">
 <div class="card"><h3>Refus</h3><p>La commission estime que les critères ne sont pas remplis. Le motif est écrit.</p></div>
-<div class="card"><h3>Ajournement</h3><p>Le dossier est repoussé, souvent faute d’éléments. Il peut être réexaminé : ce n’est pas un refus.</p></div>
+<div class="card"><h3>Ajournement</h3><p>Le dossier est repoussé, souvent faute d’éléments. Ce n’est pas un refus : renseignez-vous auprès de la préfecture sur la suite.</p></div>
 </div>
 <h2>3. Les voies possibles</h2>
 <ul>
-<li><strong>Recours gracieux ou hiérarchique</strong> auprès de l’administration, par la commune. {V}</li>
-<li><strong>Recours devant le tribunal administratif</strong> : <span class="delai">environ 2 mois</span> à compter de la publication ou de la notification. {V} <small>Les sources divergent sur le point de départ : vérifiez-le sans attendre.</small></li>
-<li><strong>Nouvelle demande ou réexamen</strong> avec de nouvelles pièces (études, constats), selon les cas. {V}</li>
+<li><strong>Recours administratif</strong> auprès de l’administration, dans les conditions du code des relations entre le public et l’administration (art. L.411-1 et suivants) et de l’<a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000046890118" rel="noopener">article D.125-1-2</a> du code des assurances.</li>
+<li><strong>Recours devant le tribunal administratif</strong> : <span class="delai">2 mois</span>, à compter de la notification de la décision par le préfet pour la commune demandeuse, et à compter de la publication de l’arrêté pour les autres personnes intéressées. <small>Mention figurant dans chaque arrêté publié au Journal officiel.</small></li>
+<li><strong>Ajournement</strong> : renseignez-vous auprès de la mairie ou de la préfecture sur la suite donnée au dossier et sur la possibilité de le compléter (études, constats).</li>
 <li>Se renseigner sur les <strong>garanties de votre contrat</strong> hors CatNat (par exemple dommages aux biens) : un professionnel peut vous orienter.</li>
 </ul>
-<div class="warn"><strong>Qui peut agir ?</strong> Ce sont d’abord la commune et son maire qui sont destinataires de la décision. Un particulier peut aussi, dans certains cas, saisir le tribunal. Demandez conseil à un avocat ou à une association de sinistrés avant d’engager une procédure.</div>
+<div class="warn"><strong>Qui peut agir ?</strong> Ce sont d’abord la commune et son maire qui sont destinataires de la décision. Les autres personnes intéressées, dont un particulier, disposent aussi de 2 mois à compter de la publication. Demandez conseil à un avocat ou à une association de sinistrés avant d’engager une procédure.</div>
 <h2>Rassembler les pièces utiles</h2>
 <ul><li>Photos datées et suivi des fissures</li><li>Rapport d’expert ou étude géotechnique</li><li>Copie de l’arrêté et de la décision motivée</li><li>Courriers échangés avec la mairie et l’assureur</li></ul>
 <p>Voir aussi <a href="reparer.html">Réparer et consolider</a>, <a href="se-faire-entendre.html">Se faire entendre</a> et <a href="experts.html">Trouver un expert</a>.</p>
 {AVERT}
-''', 'Que faire en cas de refus ou d’ajournement d’une reconnaissance de catastrophe naturelle sécheresse ? Recours et délais à vérifier.')
+''', 'Que faire en cas de refus ou d’ajournement d’une reconnaissance de catastrophe naturelle sécheresse ? Recours, délais et textes de référence.')
 
 # ---------- Réparer ----------
 page('reparer.html', 'Réparer et consolider', 'Les grandes options, de la plus légère à la plus lourde, et pourquoi le diagnostic passe en premier.', f'''
 <div class="note"><strong>L’idée à retenir :</strong> on ne répare pas une fissure, on traite d’abord <em>la cause</em>. Reboucher sans comprendre ce qui bouge sous la maison, c’est souvent revoir la fissure revenir. Le bon ordre : <strong>comprendre, stabiliser, puis réparer</strong>.</div>
 
 <h2>Étape 0 : le diagnostic</h2>
-<p>Avant tout devis de travaux, une <strong>étude géotechnique</strong> (réalisée par un bureau d’études) établit la nature du sol, la profondeur de l’argile, la présence d’eau ou d’arbres et la cause probable des désordres. Les missions sont normalisées (norme NF P94-500) : la mission dite « G5 » porte sur le diagnostic d’une construction existante ; les missions « G2 » servent à concevoir la solution de reprise. {V}</p>
+<p>Avant tout devis de travaux, une <strong>étude géotechnique</strong> (réalisée par un bureau d’études) établit la nature du sol, la profondeur de l’argile, la présence d’eau ou d’arbres et la cause probable des désordres. Les missions sont normalisées (norme NF P94-500) : la mission dite « G5 » porte sur le diagnostic d’une construction existante ; les missions « G2 » servent à concevoir la solution de reprise.</p>
 <p>Pendant ce temps, posez des <strong>témoins de fissures</strong> (jauges ou plaquettes graduées) pour suivre l’évolution sur plusieurs mois. Cela aide aussi l’expert de l’assureur. Voir <a href="experts.html">Trouver un expert</a>.</p>
 
 <h2>Niveau 1 : agir sur l’environnement de la maison</h2>
@@ -295,16 +294,16 @@ page('reparer.html', 'Réparer et consolider', 'Les grandes options, de la plus 
 <p>C’est la solution la plus lourde, réservée aux cas où le diagnostic le justifie.</p>
 <div class="cards">
 <div class="card"><h3>Reprise en sous-œuvre</h3><p>On renforce les fondations en les faisant reposer plus profond, dans une couche de sol stable : <strong>micropieux</strong>, <strong>pieux</strong>, puits ou plots en béton, longrines. C’est technique et coûteux, mais durable.</p></div>
-<div class="card"><h3>Injection de résine dans le sol</h3><p>Une résine expansive est injectée sous les fondations pour consolider ou stabiliser le sol. Elle est plus rapide et moins intrusive qu’un sous-œuvre, mais ne convient pas à tous les cas : la pertinence dépend de l’étude de sol. {V}</p></div>
+<div class="card"><h3>Injection de résine dans le sol</h3><p>Une résine expansive est injectée sous les fondations pour consolider ou stabiliser le sol. Elle est plus rapide et moins intrusive qu’un sous-œuvre, mais ne convient pas à tous les cas : la pertinence dépend de l’étude de sol : faites-la valider par un bureau d’études indépendant de l’entreprise qui vend la solution.</p></div>
 </div>
 
 <h2>Combien ça coûte ?</h2>
-<p>Les écarts sont très importants selon la cause, la taille de la maison et la solution : du <strong>simple traitement de fissures</strong> à plusieurs <strong>dizaines de milliers d’euros</strong> pour un sous-œuvre. N’avancez aucun chiffre sans <strong>devis détaillés</strong> (au moins deux) et sans étude de sol. {V}</p>
+<p>Les écarts sont très importants selon la cause, la taille de la maison et la solution : du <strong>simple traitement de fissures</strong> à plusieurs <strong>dizaines de milliers d’euros</strong> pour un sous-œuvre. N’avancez aucun chiffre sans <strong>devis détaillés</strong> (au moins deux) et sans étude de sol.</p>
 
 <h2>Réparation et indemnisation : ne pas se tromper d’ordre</h2>
 <ul>
-<li><strong>Ne lancez pas de gros travaux avant d’avoir informé votre assureur</strong> et laissé l’expert constater les dégâts. Des mesures urgentes de sécurité restent possibles : gardez photos, factures et rapports. {V}</li>
-<li>L’indemnisation CatNat vise la <strong>remise en état</strong> des dommages causés par l’événement reconnu. La prise en charge des études, des travaux de sol ou de prévention dépend de votre contrat et du texte en vigueur : demandez-le par écrit à l’assureur. {V}</li>
+<li><strong>Ne lancez pas de gros travaux avant d’avoir informé votre assureur</strong> et laissé l’expert constater les dégâts. Des mesures urgentes de sécurité restent possibles : gardez photos, factures et rapports. Ne rebouchez pas les fissures avant le passage de l’expert, sauf nécessité de sécurité.</li>
+<li>L’indemnisation CatNat vise la <strong>remise en état</strong> des dommages causés par l’événement reconnu. La prise en charge des études, des travaux de sol ou de prévention dépend de votre contrat et du texte en vigueur : demandez-le par écrit à l’assureur (<a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000047109081" rel="noopener">article L.125-2</a>).</li>
 <li>Faites contrôler le devis de reprise par <strong>votre</strong> expert ou bureau d’études, surtout si l’assureur propose une solution différente.</li>
 </ul>
 
