@@ -2,18 +2,19 @@
 import os
 OUT = os.path.expanduser('~/argiles-info')
 NOM = 'Argile 06'
-CONTACT = 'contact@exemple.fr'  # À REMPLACER avant publication
+CONTACT = 'argile06.contact@gmail.com'  # À REMPLACER avant publication
 
 PAGES = [
     ('index.html', 'Accueil'),
     ('comprendre.html', 'Comprendre'),
-    ('vence.html', 'Vence et Alpes-Maritimes'),
+    ('vence.html', 'Vence'),
     ('mon-adresse.html', 'Mon adresse'),
-    ('demarche.html', 'Démarche CatNat'),
-    ('recours.html', 'Refus et recours'),
+    ('demarche.html', 'Démarche'),
+    ('recours.html', 'Recours'),
+    ('reparer.html', 'Réparer'),
     ('se-faire-entendre.html', 'Se faire entendre'),
-    ('experts.html', 'Trouver un expert'),
-    ('entraide.html', 'Entraide et ressources'),
+    ('experts.html', 'Experts'),
+    ('entraide.html', 'Entraide'),
 ]
 
 LOGO = '''<svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#a8512f"/><path d="M4 14h24v14H4z" fill="#d49a3f"/><path d="M4 14l8 0 3 5 3-4 3 6 7-7" stroke="#fbf7f0" stroke-width="2" fill="none" stroke-linejoin="round"/><path d="M8 13l8-7 8 7" stroke="#fbf7f0" stroke-width="2" fill="none"/></svg>'''
@@ -49,7 +50,7 @@ def head(title, desc, fname):
 <title>{title} · {NOM}</title>
 <meta name="description" content="{desc}">
 <meta name="theme-color" content="#a8512f">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css?v=6">
 </head>
 <body>
 <a class="skip" href="#contenu">Aller au contenu</a>
@@ -59,7 +60,7 @@ def head(title, desc, fname):
 <button class="menu-btn" aria-expanded="false" aria-controls="nav-main">Menu</button>
 <nav class="main" id="nav-main" aria-label="Navigation principale"><ul>
 ''' + ''.join(
-        '<li><a href="%s"%s>%s</a></li>\n' % (f, ' aria-current="page"' if f == fname else '', n)
+        '<li><a href="%s"%s>%s</a></li>\n' % (f, (' aria-current="page"' if f == fname else '') + (' class="cta"' if f == 'mon-adresse.html' else ''), n)
         for f, n in PAGES[1:]) + '''</ul></nav>
 </div>
 </header>
@@ -83,7 +84,7 @@ def foot():
 <small>Information générale, non contractuelle, qui ne constitue pas un conseil juridique personnalisé. Vérifiez votre situation auprès de la préfecture, de votre assureur ou d’un professionnel.</small>
 </div>
 </footer>
-<script src="js/main.js"></script>
+<script src="js/main.js?v=6"></script>
 </body>
 </html>
 '''
@@ -98,6 +99,9 @@ def page(fname, title, sub, body, desc):
 {body}
 </div>
 ''' + foot()
+    if fname == 'mon-adresse.html':
+        html = html.replace('<link rel="stylesheet" href="css/style.css?v=6">', '<link rel="stylesheet" href="css/vendor/leaflet.css">\n<link rel="stylesheet" href="css/style.css?v=6">')
+        html = html.replace('<script src="js/main.js?v=6">', '<script src="js/vendor/leaflet.js"></script>\n<script src="js/main.js?v=6">')
     open(os.path.join(OUT, fname), 'w', encoding='utf-8').write(html)
 
 
@@ -156,7 +160,7 @@ page('comprendre.html', 'Comprendre le phénomène', 'Le retrait-gonflement des 
 <li>Documentez (photos datées, plan simple de la maison, dates des étés secs).</li>
 <li>Vérifiez l’exposition de votre adresse : <a href="mon-adresse.html">outil Géorisques</a>.</li>
 <li>Déclarez le sinistre à votre assureur dans les délais : <a href="demarche.html">voir la démarche</a>.</li>
-<li>Évitez de reboucher les fissures sans avis : cela masque l’évolution.</li>
+<li>Évitez de reboucher les fissures sans avis : cela masque l’évolution. Voir <a href="reparer.html">Réparer et consolider</a>.</li>
 </ol>
 <h2>Prévenir quand on construit ou on achète</h2>
 <p>Depuis la loi ELAN (2018), dans les zones d’exposition <strong>moyenne ou forte</strong>, une étude géotechnique est obligatoire pour vendre un terrain constructible et avant de construire. Renseignez-vous auprès de votre mairie et d’un bureau d’études.</p>
@@ -195,11 +199,18 @@ page('mon-adresse.html', 'Vérifier mon adresse', 'Le niveau d’exposition offi
 <div class="tool">
 <form id="adresse-form" novalidate>
 <label for="adresse">Votre adresse</label>
-<div class="row"><input type="text" id="adresse" name="adresse" autocomplete="off" placeholder="ex. 12 avenue Henri Isnard, 06140 Vence"><button class="btn" type="submit">Vérifier</button></div>
+<div class="row"><div class="field"><input type="text" id="adresse" name="adresse" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="adresse-suggestions" aria-autocomplete="list" placeholder="ex. 12 avenue Henri Isnard, 06140 Vence"><ul class="suggestions" id="adresse-suggestions" role="listbox" aria-label="Adresses suggérées" hidden></ul></div><button class="btn" type="submit">Vérifier</button></div>
 </form>
-<div class="result" id="adresse-resultat" aria-live="polite"></div>
+<div class="result" id="adresse-resultat" aria-live="polite"><p>Commencez à taper votre adresse, ou cliquez directement sur la carte.</p></div>
+<div class="legende" aria-label="Légende">
+<span><i style="background:#ffff00"></i>Exposition faible</span>
+<span><i style="background:#fda300"></i>Exposition moyenne</span>
+<span><i style="background:#fd0000"></i>Exposition forte</span>
 </div>
-<div class="note"><strong>Confidentialité :</strong> votre adresse est envoyée directement de votre navigateur aux services publics (géocodage de l’IGN et Géorisques). Ce site n’a pas de serveur et n’enregistre rien.</div>
+<div id="carte" role="region" aria-label="Carte d’exposition au retrait-gonflement des argiles"></div>
+</div>
+<p><small>Fond de carte : IGN. Couche d’exposition : Géorisques / BRGM. Cliquez sur la carte pour connaître l’exposition d’un point. Couleurs de la légende indicatives : la carte officielle fait foi.</small></p>
+<div class="note"><strong>Confidentialité :</strong> ce que vous tapez est envoyé de votre navigateur aux services publics (IGN pour les suggestions et le fond de carte, Géorisques pour l’exposition). Ce site n’a pas de serveur et n’enregistre rien.</div>
 <h2>Comment lire le résultat</h2>
 <ul>
 <li><strong>Exposition forte ou moyenne</strong> : sols argileux sensibles. Ce n’est pas un diagnostic de votre maison.</li>
@@ -208,7 +219,7 @@ page('mon-adresse.html', 'Vérifier mon adresse', 'Le niveau d’exposition offi
 </ul>
 <p><a href="https://www.georisques.gouv.fr/cartes-interactives" rel="noopener">Carte interactive officielle (Géorisques)</a> · <a href="comprendre.html">Comprendre le phénomène</a></p>
 {AVERT}
-''', 'Entrez votre adresse pour connaître le niveau d’exposition au retrait-gonflement des argiles selon Géorisques.')
+''', 'Entrez votre adresse pour connaître le niveau d’exposition au retrait-gonflement des argiles selon Géorisques, avec la carte.')
 
 # ---------- Démarche ----------
 page('demarche.html', 'La démarche catastrophe naturelle', 'Pas à pas, avec les délais à retenir.', f'''
@@ -252,9 +263,65 @@ page('recours.html', 'Refus ou ajournement : que faire ?', 'Un refus n’est pas
 <div class="warn"><strong>Qui peut agir ?</strong> Ce sont d’abord la commune et son maire qui sont destinataires de la décision. Un particulier peut aussi, dans certains cas, saisir le tribunal. Demandez conseil à un avocat ou à une association de sinistrés avant d’engager une procédure.</div>
 <h2>Rassembler les pièces utiles</h2>
 <ul><li>Photos datées et suivi des fissures</li><li>Rapport d’expert ou étude géotechnique</li><li>Copie de l’arrêté et de la décision motivée</li><li>Courriers échangés avec la mairie et l’assureur</li></ul>
-<p>Voir aussi <a href="se-faire-entendre.html">Se faire entendre</a> et <a href="experts.html">Trouver un expert</a>.</p>
+<p>Voir aussi <a href="reparer.html">Réparer et consolider</a>, <a href="se-faire-entendre.html">Se faire entendre</a> et <a href="experts.html">Trouver un expert</a>.</p>
 {AVERT}
 ''', 'Que faire en cas de refus ou d’ajournement d’une reconnaissance de catastrophe naturelle sécheresse ? Recours et délais à vérifier.')
+
+# ---------- Réparer ----------
+page('reparer.html', 'Réparer et consolider', 'Les grandes options, de la plus légère à la plus lourde, et pourquoi le diagnostic passe en premier.', f'''
+<div class="note"><strong>L’idée à retenir :</strong> on ne répare pas une fissure, on traite d’abord <em>la cause</em>. Reboucher sans comprendre ce qui bouge sous la maison, c’est souvent revoir la fissure revenir. Le bon ordre : <strong>comprendre, stabiliser, puis réparer</strong>.</div>
+
+<h2>Étape 0 : le diagnostic</h2>
+<p>Avant tout devis de travaux, une <strong>étude géotechnique</strong> (réalisée par un bureau d’études) établit la nature du sol, la profondeur de l’argile, la présence d’eau ou d’arbres et la cause probable des désordres. Les missions sont normalisées (norme NF P94-500) : la mission dite « G5 » porte sur le diagnostic d’une construction existante ; les missions « G2 » servent à concevoir la solution de reprise. {V}</p>
+<p>Pendant ce temps, posez des <strong>témoins de fissures</strong> (jauges ou plaquettes graduées) pour suivre l’évolution sur plusieurs mois. Cela aide aussi l’expert de l’assureur. Voir <a href="experts.html">Trouver un expert</a>.</p>
+
+<h2>Niveau 1 : agir sur l’environnement de la maison</h2>
+<p>Souvent le moins cher, parfois suffisant, et presque toujours utile en complément.</p>
+<div class="cards">
+<div class="card"><h3>Gérer l’eau</h3><p>Éloigner les eaux de pluie des murs (gouttières raccordées à un réseau, pentes du terrain), réparer les fuites de canalisations, <strong>drainer</strong> si nécessaire. L’objectif : que l’humidité du sol varie le moins possible autour des fondations.</p></div>
+<div class="card"><h3>Gérer la végétation</h3><p>Les racines des grands arbres pompent l’eau du sol en été et accentuent le retrait. Éloigner ou arracher les arbres proches de la maison, ou les élaguer, <em>sur avis d’un spécialiste</em> : l’arrachage d’un arbre ancien peut aussi faire gonfler le sol d’un coup.</p></div>
+<div class="card"><h3>Protéger le sol autour</h3><p>Un <strong>trottoir périphérique</strong> étanche (ou une géomembrane) autour de la maison limite l’évaporation et les infiltrations brutales près des fondations. Le principe est d’y créer une zone d’humidité plus stable.</p></div>
+</div>
+
+<h2>Niveau 2 : traiter les fissures et renforcer le bâti</h2>
+<p>À envisager <strong>quand le mouvement est stabilisé</strong> ou que la cause est traitée.</p>
+<ul>
+<li><strong>Reprise des fissures</strong> : rebouchage et enduit souple, injection de résine dans les fissures, ou <strong>agrafage / couture</strong> (agrafes métalliques ou en matériau composite) pour « recoudre » le mur.</li>
+<li><strong>Renforts structurels</strong> : chaînages, tirants ou ancrages pour solidariser les murs et mieux répartir les efforts.</li>
+</ul>
+<p>Ces travaux traitent les <em>conséquences</em>. Faits trop tôt ou sans traiter la cause, ils risquent de ne pas tenir.</p>
+
+<h2>Niveau 3 : renforcer ou traiter le sol et les fondations</h2>
+<p>C’est la solution la plus lourde, réservée aux cas où le diagnostic le justifie.</p>
+<div class="cards">
+<div class="card"><h3>Reprise en sous-œuvre</h3><p>On renforce les fondations en les faisant reposer plus profond, dans une couche de sol stable : <strong>micropieux</strong>, <strong>pieux</strong>, puits ou plots en béton, longrines. C’est technique et coûteux, mais durable.</p></div>
+<div class="card"><h3>Injection de résine dans le sol</h3><p>Une résine expansive est injectée sous les fondations pour consolider ou stabiliser le sol. Elle est plus rapide et moins intrusive qu’un sous-œuvre, mais ne convient pas à tous les cas : la pertinence dépend de l’étude de sol. {V}</p></div>
+</div>
+
+<h2>Combien ça coûte ?</h2>
+<p>Les écarts sont très importants selon la cause, la taille de la maison et la solution : du <strong>simple traitement de fissures</strong> à plusieurs <strong>dizaines de milliers d’euros</strong> pour un sous-œuvre. N’avancez aucun chiffre sans <strong>devis détaillés</strong> (au moins deux) et sans étude de sol. {V}</p>
+
+<h2>Réparation et indemnisation : ne pas se tromper d’ordre</h2>
+<ul>
+<li><strong>Ne lancez pas de gros travaux avant d’avoir informé votre assureur</strong> et laissé l’expert constater les dégâts. Des mesures urgentes de sécurité restent possibles : gardez photos, factures et rapports. {V}</li>
+<li>L’indemnisation CatNat vise la <strong>remise en état</strong> des dommages causés par l’événement reconnu. La prise en charge des études, des travaux de sol ou de prévention dépend de votre contrat et du texte en vigueur : demandez-le par écrit à l’assureur. {V}</li>
+<li>Faites contrôler le devis de reprise par <strong>votre</strong> expert ou bureau d’études, surtout si l’assureur propose une solution différente.</li>
+</ul>
+
+<h2>Bien choisir l’entreprise</h2>
+<ul>
+<li>Demandez son <strong>attestation d’assurance décennale</strong> en cours de validité, correspondant à l’activité concernée.</li>
+<li>Exigez un devis détaillé, qui rappelle la cause traitée et la solution retenue d’après l’étude de sol.</li>
+<li>Méfiez-vous des démarcheurs qui promettent une solution « miracle », sans étude, ou une prise en charge assurée.</li>
+</ul>
+
+<h2>Sources officielles</h2>
+<ul>
+<li><a href="https://www.georisques.gouv.fr/risques/retrait-gonflement-des-argiles" rel="noopener">Géorisques : retrait-gonflement des argiles</a></li>
+<li><a href="https://www.legifrance.gouv.fr/codes/texte_lc/LEGITEXT000006073984" rel="noopener">Légifrance : Code des assurances</a></li>
+</ul>
+{AVERT}
+''', 'Les options de réparation et de consolidation d’une maison fissurée par les argiles : diagnostic, drainage, injection, sous-œuvre, coûts et indemnisation.')
 
 # ---------- Se faire entendre ----------
 page('se-faire-entendre.html', 'Se faire entendre', 'Seul, on est vite découragé. Ensemble, un dossier pèse davantage.', f'''
